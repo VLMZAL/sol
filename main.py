@@ -20,11 +20,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # QNN output
-    p = qnn_policy(state, weights)
+    # QNN action probabilities
+    probabilities = qnn_policy(state, weights)
 
     # Azione più lenta e più chiara
-    action = int((p + 1) * 2) % 4
+    action = int(np.argmax(probabilities))
 
     # Step dell'ambiente
     state, reward, done = env.step(action)
@@ -45,7 +45,7 @@ while running:
 
     # HUD informativo
     hud_lines = [
-        f"QNN output p: {p:.3f}",
+        f"QNN probabilities: {np.asarray(probabilities).round(3)}",
         f"Azione: {action}",
         f"Distanza: {dist:.1f}",
         f"Reward: {reward:.2f}"
