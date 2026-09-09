@@ -1,5 +1,4 @@
 import pennylane as qml
-import numpy as np
 
 n_qubits = 3
 dev = qml.device("default.qubit", wires=n_qubits)
@@ -16,12 +15,13 @@ def qnn_circuit(state, weights):
     for i in range(n_qubits):
         qml.RY(weights[i], wires=i)
 
-    return qml.expval(qml.PauliZ(0))
+    qml.CNOT(wires=[2, 1])
 
-@qml.qnode(dev)
+    return qml.probs(wires=[0, 1])
+
+@qml.qnode(dev, interface="autograd")
 def qnn_forward(state, weights):
     return qnn_circuit(state, weights)
 
 def qnn_policy(state, weights):
-    p = qnn_forward(state, weights)
-    return p
+    return qnn_forward(state, weights)
