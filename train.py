@@ -19,7 +19,7 @@ gamma = 0.99
 epsilon = 1e-10
 
 EPISODES = 10000
-MAX_STEPS = 50
+MAX_STEPS = 20
 
 env = Env()
 

@@ -2,7 +2,6 @@ import numpy as np
 
 WIDTH = 600
 HEIGHT = 400
-MAX_DIST = np.sqrt(WIDTH**2 + HEIGHT**2)
 
 class Env:
     def __init__(self):
@@ -17,12 +16,13 @@ class Env:
         return self.get_state()
 
     def get_state(self):
-        # Stato ridotto a 3 valori per QNN con 3 qubit
-        dist = np.sqrt((self.player_x - self.target_x)**2 + (self.player_y - self.target_y)**2)
+        dx = (self.target_x - self.player_x) / WIDTH
+        dy = (self.target_y - self.player_y) / HEIGHT
         return np.array([
             self.player_x / WIDTH,
             self.player_y / HEIGHT,
-            dist / MAX_DIST
+            dx,
+            dy
         ])
 
     def step(self, action):

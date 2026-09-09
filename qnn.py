@@ -1,7 +1,7 @@
 import pennylane as qml
 
 n_qubits = 3
-dev = qml.device("default.qubit", wires=n_qubits)
+dev = qml.device("lightning.qubit", wires=n_qubits)
 
 def qnn_circuit(state, weights):
     # Encoding dello stato normalizzato
